@@ -1,6 +1,18 @@
 import db from "../config/db.js"
 
 
+
+export const deleteItemInventory = (id) => {
+    return new Promise(
+        (resolve, reject) => {
+            const query = 'Delete FROM DyeInventory where dyeInventory_id = ?;'
+            db.execute(query, [id])
+                .then((result) => resolve(result))
+                .catch((err) => reject(err))
+        }
+    )
+
+}
 export const fetchInventory = (page , limit) => {
 
     return new Promise(

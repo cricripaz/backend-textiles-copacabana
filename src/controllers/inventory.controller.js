@@ -1,4 +1,23 @@
 import * as InventoryServices from "../services/inventory.services.js"
+import * as userServices from "../services/user.services.js";
+
+
+
+
+
+export const deleteItemInventory = (req,res) => {
+    //TODO Investigar donde va el id
+    const id  = req.params.id
+    InventoryServices.deleteItemInventory(id)
+        .then((result) => {
+            res.status(200).json({
+                message: "Item Delete Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
 
 export const fetchInventory = (req,res) => {
     const { page , limit } = req.query

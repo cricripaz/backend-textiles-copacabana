@@ -17,3 +17,4 @@ userRoute.delete('/delete/:id',deleteUser)
 
 
 export default userRoute;
+
