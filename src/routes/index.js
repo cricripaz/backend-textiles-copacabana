@@ -2,6 +2,7 @@ import { Router } from "express";
 import userRouter from "./user.route.js"
 import dyeRoute from "./dye.route.js";
 import inventoryRoute from "./inventory.route.js";
+import customerRoute from "./customer.route.js"
 
 const indexRouter = Router();
 
@@ -15,6 +16,9 @@ indexRouter.get(prefix , (req,res) => {
 
 userRouter.use(`${prefix}/user`, userRouter);
 dyeRoute.use(`${prefix}/dye`,dyeRoute);
-inventoryRoute.use(`${prefix}/inventory`,inventoryRoute)
+inventoryRoute.use(`${prefix}/inventory`,inventoryRoute);
+customerRoute.use(`${prefix}/customer`,customerRoute);
+
+
 
 export default indexRouter;
