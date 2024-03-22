@@ -18,12 +18,27 @@ export const getUsers = (req, res) => {
 }
 
 export const deleteUser = (req,res) => {
-    //TODO Investigar donde va el id 
+    //TODO Investigar donde va el id
+
     const id  = req.params.id
     userServices.deleteUser(id)
         .then((result) => {
             res.status(200).json({
                 message: "User Delete Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
+
+export const editUser = (req,res) => {
+    const id = req.params.id
+    const {username,role_id,email,name,lastname,numberphone,ci} = req.body
+    userServices.editUser(id,username,role_id,email,name,lastname,numberphone,ci)
+        .then((result) => {
+            res.status(200).json({
+                message: "User Update Successfully",
             })
         })
         .catch((err) => {

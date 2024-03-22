@@ -18,8 +18,10 @@ app.set("port", process.env.PORT || 3000)
 
 
 
-//TODO INVESTIGAR QUE SON LAS 2 LINEAS DE ABAJO :v
+// para que spueda escuchar en formato json
 app.use(bodyParser.json());
+
+//TODO INVESTIGAR QUE SON LA  LINEA DE ABAJO :v
 app.use(bodyParser.urlencoded({ extended: true }));
 
 

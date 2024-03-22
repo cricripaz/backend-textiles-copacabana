@@ -10,7 +10,7 @@ export const getUsers = () => {
 
         const query = 'select\n' +
             '\n' +
-            '    us.user_id,us.username,rol.name as role ,us.email,us.name , us.lastName, us.numberPhone\n' +
+            '    us.user_id,us.username,rol.name as role ,us.email,us.name , us.lastName,us.state,us.ci, us.numberPhone\n' +
             'from\n' +
             '    users as us\n' +
             '    INNER JOIN roles as rol\n' +
@@ -36,11 +36,29 @@ export const createUser = (username,password,role_id,email,name,lastname,numberp
     )
 }
 
+export const editUser = (id, username, role_id, email, name, lastname, numberphone, ci) => {
+    return new Promise(
+        (resolve, reject) => {
+
+            // Ajusta la consulta SQL para actualizar las columnas necesarias
+            const query = `UPDATE users 
+                           SET username = ?, role_id = ?, email = ?, name = ?, lastname = ?, numberphone = ?, ci = ?
+                           WHERE user_id = ?;`;
+
+            // Añade los parámetros correspondientes en el array
+            const params = [username, role_id, email, name, lastname, numberphone, ci, id];
+
+            db.execute(query, params)
+                .then((result) => resolve(result))
+                .catch((err) => reject(err));
+        }
+    );
+};
 
 export const deleteUser = (id) =>{
     return new Promise(
         (resolve, reject) => {
-            const query = 'Delete FROM users where user_id = ?;'
+            const query = `UPDATE users set state = 'inactive' where user_id = ?;`
             db.execute(query, [id])
                 .then((result) => resolve(result))
                 .catch((err) => reject(err))
