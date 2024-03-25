@@ -2,6 +2,8 @@ import * as userServices from "../services/user.services.js"
 import e from "express";
 
 
+
+
 export const getUsers = (req, res) => {
     userServices.getUsers()
         .then((result) => {
@@ -9,7 +11,6 @@ export const getUsers = (req, res) => {
                 message: "Users get successfully",
                 users : result[0]
                 // result[0] para que nos envie solo el primer array y no info adicional
-
             })
         })
         .catch((err) => {

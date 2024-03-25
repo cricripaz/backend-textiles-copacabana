@@ -4,6 +4,25 @@ import jwt from 'jsonwebtoken';
 
 
 
+export const checkUserExistence = async (userId) => {
+
+    const query = 'SELECT COUNT(*) AS userCount FROM users WHERE user_id = ?';
+
+    try {
+        // Ejecución de la consulta a la base de datos utilizando async/await
+        const [results] = await db.execute(query, [userId]);
+
+       const res =  results[0].userCount > 0
+
+        return res
+    } catch (error) {
+        // Manejo de errores si ocurre algún problema durante la consulta
+        console.error('Error while checking user existence:', error);
+    }
+};
+
+
+
 export const getUsers = () => {
 
     return new Promise((resolve , reject) => {
