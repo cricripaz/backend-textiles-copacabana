@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {getInventory ,fetchInventory , createItemInventory,deleteItemInventory} from "../controllers/inventory.controller.js";
-
+import {limiterPerUser} from "../middleware/limiter.js";
 
 
 const inventoryRoute = Router();

@@ -3,6 +3,7 @@ import { Router} from "express";
 import {getUsers,signIn,createUser,deleteUser,editUser} from "../controllers/user.controller.js"
 import {verifyToken} from "../middleware/authJwt.js"
 
+
 const userRoute = Router();
 
 userRoute.get("/",verifyToken, getUsers);

@@ -10,6 +10,7 @@ import dyeRoute from "./routes/dye.route.js";
 import * as bodyParser from "express";
 import inventoryRoute from "./routes/inventory.route.js";
 import customerRoute from "./routes/customer.route.js";
+import recipeRoute from "./routes/recipe.route.js";
 
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/',userRoute)
 app.use('/', dyeRoute)
 app.use('/', inventoryRoute)
 app.use('/',customerRoute)
+app.use('/',recipeRoute)
 app.use('*', (req, res) => { res.status(404).send(" 404 - not found ")})
 
 
