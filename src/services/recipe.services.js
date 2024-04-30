@@ -1,7 +1,31 @@
 import db from "../config/db.js"
 
 
+export const updateRecipe = (id_recipe,name,weight,ingredients) => {
 
+    return new Promise((resolve,reject) => {
+
+        const query = `CALL UpdateRecipe(${id_recipe}, '${name}', ${weight},'${JSON.stringify(ingredients)}')`;
+
+        db.execute(query,[id_recipe,name,weight,ingredients])
+            .then((result) => resolve(result))
+            .catch((err) => reject(err))
+
+    })
+}
+
+export const deleteRecipe = (id) => {
+
+    return new Promise((resolve,reject) => {
+
+        const query = 'DELETE FROM RecipeIngredients WHERE recipeRegistry_id = ?;'
+
+        db.execute(query,[id])
+            .then((result) => resolve(result))
+            .catch((err) => reject(err))
+
+    })
+}
 export const createRecipe = (name, weight, id_user, ingredients) => {
     return new Promise((resolve, reject) => {
         const query = `CALL InsertRecipe('${name}', ${weight}, ${id_user}, '${JSON.stringify(ingredients)}')`;

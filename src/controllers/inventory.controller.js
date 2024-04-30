@@ -2,8 +2,44 @@ import * as InventoryServices from "../services/inventory.services.js"
 
 
 
+export const updateWeightInventory = (req,res) => {
+
+    let {id , weigth , type} = req.body
+
+    if (type === 'gr') {
+        weigth = weigth / 1000.0;  // 1000 gramos = 1 kilogramo
+    }
+
+    InventoryServices.updateWeightInventory(id,weigth)
+        .then((result) => {
+            res.status(200).json({
+                message: "Weight added successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
 
 
+}
+
+
+export const editItemInventory = (req,res) => {
+    const id  = req.params.id
+
+    const {name , dyeType_id,weight , description} = req.body
+
+    InventoryServices.editItemInventory(name,dyeType_id,weight,description,id)
+        .then((result) => {
+            res.status(200).json({
+                message: "Item Inventory Update Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+
+}
 
 export const deleteItemInventory = (req,res) => {
     //TODO Investigar donde va el id
@@ -45,6 +81,8 @@ export const getInventory = (req,res) => {
             res.status(500).send(err)
         })
 }
+
+
 
 export const createItemInventory = (req, res) => {
     const {name,type,user_id,weigth,description} = req.body

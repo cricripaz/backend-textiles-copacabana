@@ -1,6 +1,6 @@
 import {Router} from "express";
 
-import {fetchCustomers} from "../controllers/customer.controller.js"
+import {fetchCustomers,createCustomer} from "../controllers/customer.controller.js"
 
 
 const customerRoute = Router();
@@ -8,6 +8,7 @@ const customerRoute = Router();
 
 
 customerRoute.get('/',fetchCustomers);
+customerRoute.post('/create',createCustomer);
 
 
 

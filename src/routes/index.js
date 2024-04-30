@@ -4,6 +4,7 @@ import dyeRoute from "./dye.route.js";
 import inventoryRoute from "./inventory.route.js";
 import customerRoute from "./customer.route.js";
 import recipeRoute from "./recipe.route.js"
+import ordersRoute from "./orders.route.js";
 
 const indexRouter = Router();
 
@@ -20,6 +21,7 @@ dyeRoute.use(`${prefix}/dye`,dyeRoute);
 inventoryRoute.use(`${prefix}/inventory`,inventoryRoute);
 customerRoute.use(`${prefix}/customer`,customerRoute);
 recipeRoute.use(`${prefix}/recipe`, recipeRoute);
+ordersRoute.use(`${prefix}/orders`,ordersRoute )
 
 
 
