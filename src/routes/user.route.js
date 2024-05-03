@@ -2,11 +2,12 @@ import { Router} from "express";
 
 import {getUsers,signIn,createUser,deleteUser,editUser} from "../controllers/user.controller.js"
 import {verifyToken} from "../middleware/authJwt.js"
+import {limiterPerUser} from "../middleware/limiter.js"
 
 
 const userRoute = Router();
 
-userRoute.get("/",verifyToken, getUsers);
+userRoute.get("/",limiterPerUser,verifyToken, getUsers);
 
 userRoute.post("/signin", signIn);
 

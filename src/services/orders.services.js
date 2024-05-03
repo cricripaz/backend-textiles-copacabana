@@ -13,3 +13,22 @@ export const getOrders = () => {
         }
     )
 }
+
+
+export const createOrder = (customer_id, material_id, title, color, cod_color, turn, observations, user_id) => {
+
+    return new Promise(
+        (resolve, reject) => {
+            const query =` INSERT INTO 
+                                    Orders 
+                                    (customer_id, material_id, title, color, cod_color, turn, observations, user_id)
+                                    VALUES(?,?,?,?,?,?,?,?)`
+
+            db.execute(query,[customer_id, material_id, title, color, cod_color, turn, observations, user_id])
+                .then( (result) => resolve(result))
+                .catch( (err) => reject(err))
+        }
+    )
+
+
+}
