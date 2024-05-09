@@ -18,3 +18,17 @@ export const getColors = () => {
 
 
 
+export const createColor = (name,description) => {
+    return new Promise(
+        (resolve, reject) => {
+            const query = 'INSERT INTO Color (name,description)value (?,?)'
+            db.execute(query, [name,description])
+                .then((result) => resolve(result))
+                .catch((err) => reject(err))
+        }
+    )
+
+}
+
+
+
