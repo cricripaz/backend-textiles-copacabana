@@ -7,6 +7,7 @@ export const getOrders = () => {
                            o.order_id,
                            c.name AS customer_name,
                            o.order_status,
+                           o.entry_date,
                            JSON_OBJECTAGG(
                                    JSON_UNQUOTE(p.name),
                                    JSON_OBJECT('quantity', od.quantity)
