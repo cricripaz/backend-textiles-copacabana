@@ -3,7 +3,6 @@ import cors from "cors";
 
 
 
-import db from "./config/db.js";
 import indexRouter from "./routes/index.js";
 import userRoute from "./routes/user.route.js";
 import dyeRoute from "./routes/dye.route.js";

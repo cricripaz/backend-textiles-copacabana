@@ -11,6 +11,8 @@ export const getOrders = (req,res) => {
                 return orders;
             });
 
+            console.log(orders);
+
             res.status(200).json({
                 message: "Orders Get Succesfully",
                 data : orders
