@@ -4,9 +4,16 @@ export const getOrders = (req,res) => {
 
     orderServices.getOrders()
         .then((result) => {
+            const orders = result[0].map(orders => {
+                if (orders.products) {
+                    orders.products = JSON.parse(orders.products);
+                }
+                return orders;
+            });
+
             res.status(200).json({
                 message: "Orders Get Succesfully",
-                data : result[0]
+                data : orders
             })
         })
         .catch((err) => {

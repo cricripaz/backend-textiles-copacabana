@@ -69,16 +69,17 @@ export const fetchInventory = (page , limit) => {
 export const getInventory = () => {
     const query = `
         SELECT
-            DI.dyeInventory_id,
-            DI.name,
-            DI.dyeType_id,
-            us.name AS encargado,
-            DI.weight,
-            DI.description
-        FROM
-            users AS us
-            INNER JOIN DyeInventory DI ON us.user_id = DI.user_id;
-    `;
+    DI.dyeInventory_id,
+    DI.name,
+    DT.name AS dyeType,   -- Seleccionamos el nombre del tipo de tinte de la tabla DyeType
+    us.name AS encargado,
+    DI.weight,
+    DI.description
+FROM
+    DyeInventory DI
+    INNER JOIN users us ON DI.user_id = us.user_id
+    INNER JOIN DyeType DT ON DI.dyeType_id = DT.dyeType_id;  -- Unión con la tabla DyeType
+ `;
 
     return new Promise((resolve, reject) => {
         db.execute(query)

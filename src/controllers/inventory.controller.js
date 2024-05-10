@@ -1,6 +1,12 @@
 import * as InventoryServices from "../services/inventory.services.js"
 
 
+const typeToIdMap = {
+    COLORANTE: 10,
+    ENVASE: 20,
+    QUIMICO: 30
+};
+
 
 export const updateWeightInventory = (req,res) => {
 
@@ -27,8 +33,11 @@ export const updateWeightInventory = (req,res) => {
 export const editItemInventory = (req,res) => {
     const id  = req.params.id
 
-    const {name , dyeType_id,weight , description} = req.body
+    const {name , type,weight , description} = req.body
 
+    const dyeType_id = typeToIdMap[type];
+
+    console.log('data inventory edit : ',name,type,dyeType_id,weight,description,id)
     InventoryServices.editItemInventory(name,dyeType_id,weight,description,id)
         .then((result) => {
             res.status(200).json({
