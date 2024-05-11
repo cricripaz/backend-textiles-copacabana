@@ -38,3 +38,22 @@ export const createOrder = (req,res) => {
             res.status(500).send(err)
         })
 }
+
+
+export const deleteOrder = (req,res) => {
+
+    const id = req.params.id
+
+    console.log('ID : ',id)
+
+    orderServices.deleteOrder(id)
+        .then((result) => {
+            res.status(200).json({
+                message: "Order Delete Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+
+}

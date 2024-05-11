@@ -2,35 +2,32 @@ import db from "../config/db.js"
 
 export const getOrders = () => {
     return new Promise((resolve, reject) => {
-        const query = `SELECT
-                           o.order_id,
-                           c.name AS customer_name,
-                           o.order_status,
-                           o.entry_date,
-                           JSON_OBJECTAGG(
-                                   JSON_UNQUOTE(p.name),
-                                   JSON_OBJECT('quantity', od.quantity)
-                           ) AS products
-                       FROM
-                           Orders o
-                               INNER JOIN
-                           Customer c ON o.customer_id = c.customer_id
-                               INNER JOIN
-                           OrderDetails od ON o.order_id = od.order_id
-                               INNER JOIN
-                           Products p ON od.product_id = p.product_id
-                               INNER JOIN
-                           Material m ON p.material_id = m.material_id
-                               INNER JOIN
-                           Color cl ON p.color_id = cl.color_id
-                       GROUP BY
-                           o.order_id, c.name, o.order_status;
+        const query = `SELECT o.order_id,
+                              c.name AS customer_name,
+                              o.order_status,
+                              o.entry_date,
+                              JSON_OBJECTAGG(
+                                      JSON_UNQUOTE(p.name),
+                                      JSON_OBJECT('quantity', od.quantity)
+                              )      AS products
+                       FROM Orders o
+                                INNER JOIN
+                            Customer c ON o.customer_id = c.customer_id
+                                INNER JOIN
+                            OrderDetails od ON o.order_id = od.order_id
+                                INNER JOIN
+                            Products p ON od.product_id = p.product_id
+                                INNER JOIN
+                            Material m ON p.material_id = m.material_id
+                                INNER JOIN
+                            Color cl ON p.color_id = cl.color_id
+                       GROUP BY o.order_id, c.name, o.order_status;
         `;
 
         db.execute(query)
-            .then( (result) =>
+            .then((result) =>
                 resolve(result))
-            .catch( (err) => reject(err))
+            .catch((err) => reject(err))
     });
 };
 
@@ -38,14 +35,28 @@ export const createOrder = (customer_id, material_id, title, color, cod_color, t
 
     return new Promise(
         (resolve, reject) => {
-            const query =` `
+            const query = ` `
 
-            db.execute(query,[customer_id, material_id, title, color, cod_color, turn, observations, user_id])
-                .then( (result) => resolve(result))
-                .catch( (err) => reject(err))
+            db.execute(query, [customer_id, material_id, title, color, cod_color, turn, observations, user_id])
+                .then((result) => resolve(result))
+                .catch((err) => reject(err))
         }
     )
 
 
 }
+
+
+export const deleteOrder = (id) => {
+    return new Promise((resolve, reject) => {
+        const query = `UPDATE Orders SET state = 'INACTIVE' WHERE order_id = ?;`;
+        db.execute(query,[id])
+            .then((result) => resolve(result))
+            .catch((err) => reject(err));
+    });
+
+};
+
+
+
 
