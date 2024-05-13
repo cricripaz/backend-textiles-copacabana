@@ -6,6 +6,7 @@ export const getOrders = () => {
                               c.name AS customer_name,
                               o.order_status,
                               o.entry_date,
+                              o.state,
                               JSON_OBJECTAGG(
                                       JSON_UNQUOTE(p.name),
                                       JSON_OBJECT('quantity', od.quantity)
@@ -21,8 +22,8 @@ export const getOrders = () => {
                             Material m ON p.material_id = m.material_id
                                 INNER JOIN
                             Color cl ON p.color_id = cl.color_id
-                       GROUP BY o.order_id, c.name, o.order_status;
-        `;
+                       WHERE o.state = 'active'
+                       GROUP BY o.order_id, c.name, o.order_status;`;
 
         db.execute(query)
             .then((result) =>
@@ -30,6 +31,9 @@ export const getOrders = () => {
             .catch((err) => reject(err))
     });
 };
+
+
+
 
 export const createOrder = (customer_id, material_id, title, color, cod_color, turn, observations, user_id) => {
 
