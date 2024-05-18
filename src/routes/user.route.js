@@ -9,7 +9,7 @@ const userRoute = Router();
 
 userRoute.get("/",limiterPerUser,verifyToken, getUsers);
 
-userRoute.post("/signin", signIn);
+userRoute.post("/login", signIn);
 
 userRoute.post("/createuser",createUser);
 

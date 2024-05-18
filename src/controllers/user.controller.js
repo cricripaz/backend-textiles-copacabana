@@ -64,6 +64,8 @@ export const createUser = (req,res) => {
 export const signIn = (req,res) => {
 
     const {username ,password } =  req.body;
+
+    console.log(req.body)
     userServices.signIn(username,password)
         .then((result) => {
             res.status(200).json(result)
