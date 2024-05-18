@@ -2,13 +2,12 @@ import * as colorsService from "../services/colors.service.js"
 import * as userServices from "../services/user.services.js";
 
 
-
 export const getColors = (req, res) => {
         colorsService.getColors()
             .then((result) => {
             res.status(200).json({
                 message: "Colors get successfully",
-                users : result[0]
+                colors : result[0]
                 // result[0] para que nos envie solo el primer array y no info adicional
             })
         })

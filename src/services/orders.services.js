@@ -5,7 +5,7 @@ export const getOrders = () => {
         const query = `SELECT o.order_id,
                               c.name AS customer_name,
                               o.order_status,
-                              o.entry_date,
+                              CONVERT_TZ(o.entry_date, '+00:00', 'America/La_Paz') AS entry_date,
                               o.state,
                               JSON_OBJECTAGG(
                                       JSON_UNQUOTE(p.name),
@@ -35,13 +35,14 @@ export const getOrders = () => {
 
 
 
-export const createOrder = (customer_id, material_id, title, color, cod_color, turn, observations, user_id) => {
+export const createOrder = (customer_id,products) => {
+
 
     return new Promise(
         (resolve, reject) => {
-            const query = ` `
+            const query = `CALL CreateOrders(?, ?);`;
 
-            db.execute(query, [customer_id, material_id, title, color, cod_color, turn, observations, user_id])
+            db.execute(query, [customer_id, JSON.stringify(products)])
                 .then((result) => resolve(result))
                 .catch((err) => reject(err))
         }

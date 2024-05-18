@@ -13,6 +13,7 @@ import recipeRoute from "./routes/recipe.route.js";
 import ordersRoute from "./routes/orders.route.js";
 import colorsRoute from "./routes/colors.route.js";
 import materialRoute from "./routes/material.route.js";
+import productRoute from "./routes/product.route.js";
 
 
 const app = express();
@@ -39,6 +40,7 @@ app.use('/',recipeRoute)
 app.use('/',ordersRoute)
 app.use('/',colorsRoute)
 app.use('/',materialRoute)
+app.use('/',productRoute)
 
 app.use('*', (req, res) => { res.status(404).send(" 404 - not found ")})
 

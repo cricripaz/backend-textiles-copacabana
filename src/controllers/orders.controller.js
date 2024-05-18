@@ -1,12 +1,13 @@
 import * as orderServices from "../services/orders.services.js"
 
 export const getOrders = (req,res) => {
-
+//TODO ver porque noe envia los datos del backend completos osea repetidos
     orderServices.getOrders()
         .then((result) => {
             const orders = result[0].map(orders => {
                 if (orders.products) {
                     orders.products = JSON.parse(orders.products);
+
                 }
                 return orders;
             });
@@ -26,9 +27,11 @@ export const getOrders = (req,res) => {
 
 export const createOrder = (req,res) => {
 
-    const {customer_id, material_id, title, color, cod_color, turn, observations, user_id}= req.body
+    const {customer_id,products}= req.body
 
-    orderServices.createOrder(customer_id, material_id, title, color, cod_color, turn, observations, user_id)
+    console.log(customer_id,products)
+
+    orderServices.createOrder(customer_id, products)
         .then((result) => {
             res.status(200).json({
                 message: "Create Order Succesfully",
