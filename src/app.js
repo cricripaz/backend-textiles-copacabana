@@ -29,8 +29,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// Configurar CORS
+const allowedOrigins = ['https://textilescopacabana-services.web.app', 'https://d1cr03nbov0ajk.cloudfront.net'];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+
 //ROUTES
-app.use(cors())
+
 app.use('/', indexRouter)
 app.use('/',userRoute)
 app.use('/', dyeRoute)
