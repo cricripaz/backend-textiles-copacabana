@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Configurar CORS
-const allowedOrigins = ['https://textilescopacabana-services.web.app', 'https://d1cr03nbov0ajk.cloudfront.net'];
+const allowedOrigins = ['https://textilescopacabana-services.web.app', 'https://d1cr03nbov0ajk.cloudfront.net','http://localhost:4200'];
 
 const corsOptions = {
     origin: function (origin, callback) {

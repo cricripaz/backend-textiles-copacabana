@@ -23,3 +23,14 @@ export const getProducts= () => {
 
     })
 }
+
+export const findProduct = (name_product) => {
+    return new Promise((resolve , reject) => {
+
+        const query = `CALL findProduct(?);`
+        db.execute(query,[name_product])
+            .then( (result) => resolve(result))
+            .catch( (err) => reject(err))
+
+    })
+}

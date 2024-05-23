@@ -6,5 +6,6 @@ const productRoute = Router();
 
 
 productRoute.get('/',controllerProduct.getProducts);
+productRoute.get('/find/:product',controllerProduct.findProduct);
 
 export default productRoute;
