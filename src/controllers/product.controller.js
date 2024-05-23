@@ -17,17 +17,23 @@ export const getProducts = (req, res) => {
 
 
 export const findProduct = (req, res) => {
-    //TODO if < 0 message : not found
-    const name_prod = req.params.product
+    const name_prod = req.params.product;
+
     productServices.findProduct(name_prod)
         .then((result) => {
-            res.status(200).json({
-                message: "Products found successfully",
-                products : result[0]
-                // result[0] para que nos envie solo el primer array y no info adicional
-            })
+            if (result.length === 0 || result[0].length === 0 || result[0][0].length === 0) {
+                res.status(404).json({
+                    message: "Product not found"
+                });
+            } else {
+                const product = result[0][0][0]; // Desestructuramos para obtener directamente el objeto
+                res.status(200).json({
+                    message: "Product found successfully",
+                    product: product
+                });
+            }
         })
         .catch((err) => {
-            res.status(500).send(err)
-        })
-}
+            res.status(500).send(err);
+        });
+};

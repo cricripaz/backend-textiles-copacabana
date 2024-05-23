@@ -4,6 +4,7 @@ export const getOrders = () => {
     return new Promise((resolve, reject) => {
         const query = `SELECT o.order_id,
                               c.name AS customer_name,
+                              c.customer_id AS customer_id,
                               o.order_status,
                               CONVERT_TZ(o.entry_date, '+00:00', 'America/La_Paz') AS entry_date,
                               o.state,
