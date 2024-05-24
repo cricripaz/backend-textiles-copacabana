@@ -34,7 +34,14 @@ export const getOrders = () => {
 };
 
 
-
+export const editOrder = (order_id, products) => {
+    return new Promise((resolve, reject) => {
+        const query = `CALL EditOrders(?, ?);`;
+        db.execute(query, [order_id, JSON.stringify(products)])
+            .then((result) => resolve(result))
+            .catch((err) => reject(err));
+    });
+};
 
 export const createOrder = (customer_id,products) => {
 

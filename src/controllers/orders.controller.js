@@ -43,6 +43,7 @@ export const createOrder = (req,res) => {
 }
 
 
+
 export const deleteOrder = (req,res) => {
 
     const id = req.params.id
@@ -60,3 +61,20 @@ export const deleteOrder = (req,res) => {
         })
 
 }
+
+export const editOrder = (req, res) => {
+    const id = req.params.id;
+    const products = req.body.products;
+
+    orderServices.editOrder(id, products)
+        .then((result) => {
+            res.status(200).json({
+                message: "Order Update Successfully",
+            });
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.sqlMessage || err.message || "An error occurred",
+            });
+        });
+};
