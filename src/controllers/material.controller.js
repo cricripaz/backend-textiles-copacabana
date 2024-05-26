@@ -27,5 +27,32 @@ export const createMaterial = (req,res) => {
             res.status(500).send(err)
         })
 }
+export const deleteMaterial = (req,res) => {
+    const id = req.params.id
 
+    materialServices.deleteMaterial(id)
+        .then((result) => {
+            res.status(200).json({
+                message: "Material Delete Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
+
+export const updateMaterial = (req,res) => {
+    const id = req.params.id
+    const {name,description} = req.body
+
+    materialServices.updateMaterial(id,name,description)
+        .then((result) => {
+            res.status(200).json({
+                message: "Material Update Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
 

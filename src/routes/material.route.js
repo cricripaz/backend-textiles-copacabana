@@ -1,7 +1,7 @@
 import { Router} from "express";
 
 
-import {createMaterial, getMaterials} from "../controllers/material.controller.js";
+import {createMaterial, getMaterials,updateMaterial,deleteMaterial} from "../controllers/material.controller.js";
 
 
 const materialRoute = Router();
@@ -10,7 +10,8 @@ const materialRoute = Router();
 
 materialRoute.get('/',getMaterials)
 materialRoute.post('/create',createMaterial)
-
+materialRoute.put('/update/:id',updateMaterial)
+materialRoute.put('/delete/:id',deleteMaterial)
 
 
 export default materialRoute;

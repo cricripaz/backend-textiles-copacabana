@@ -1,5 +1,5 @@
 import * as colorsService from "../services/colors.service.js"
-import * as userServices from "../services/user.services.js";
+
 
 
 export const getColors = (req, res) => {
@@ -23,6 +23,33 @@ export const createColor = (req,res) => {
         .then((result) => {
             res.status(200).json({
                 message: "Color Create Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
+
+export const editColor = (req,res) => {
+    const id = req.params.id
+    const {name,description} = req.body
+    colorsService.editColor(id,name,description)
+        .then((result) => {
+            res.status(200).json({
+                message: "Color Update Successfully",
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
+
+export const deleteColor = (req,res) => {
+    const id = req.params.id
+    colorsService.deleteColor(id)
+        .then((result) => {
+            res.status(200).json({
+                message: "Color Delete Successfully",
             })
         })
         .catch((err) => {
