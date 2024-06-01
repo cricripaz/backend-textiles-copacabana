@@ -34,8 +34,8 @@ export const deleteRecipe = (req,res) => {
 }
 
 export const createRecipe = (req,res) => {
-    const {name, weight, id_user, ingredients} = req.body
-    recipeServices.createRecipe(name, weight, id_user, ingredients)
+    const {name, id_user, ingredients} = req.body
+    recipeServices.createRecipe(name, id_user, ingredients)
         .then((result) => {
             res.status(200).json({
                 message: "Recipe Create Successfully",

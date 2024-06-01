@@ -10,7 +10,7 @@ const materialRoute = Router();
 
 materialRoute.get('/',getMaterials)
 materialRoute.post('/create',createMaterial)
-materialRoute.put('/update/:id',updateMaterial)
+materialRoute.put('/edit/:id',updateMaterial)
 materialRoute.put('/delete/:id',deleteMaterial)
 
 

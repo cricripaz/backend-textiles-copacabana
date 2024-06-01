@@ -26,9 +26,9 @@ export const deleteRecipe = (id) => {
 
     })
 }
-export const createRecipe = (name, weight, id_user, ingredients) => {
+export const createRecipe = (name, id_user, ingredients) => {
     return new Promise((resolve, reject) => {
-        const query = `CALL InsertRecipe('${name}', ${weight}, ${id_user}, '${JSON.stringify(ingredients)}')`;
+        const query = `CALL InsertRecipes('${name}', ${id_user}, '${JSON.stringify(ingredients)}')`;
         console.log(query)
         db.execute(query, [])
             .then((result) => resolve(result))
@@ -42,22 +42,23 @@ export const getRecipes = () => {
     return new Promise((resolve , reject) => {
 
         const query = `
-                SELECT
-                    rr.recipeRegistry_id,
-                    rr.name AS recipe_name,
-                    rr.total_weight AS recipe_total_weight,
-                    JSON_OBJECTAGG(
-                        JSON_UNQUOTE(i.name), 
-                        JSON_OBJECT('weight', i.weight, 'notes', JSON_UNQUOTE(i.notes))
-                    ) AS ingredients
-                FROM
-                    RecipeRegistry rr
-                INNER JOIN
-                    RecipeIngredients ri ON rr.recipeRegistry_id = ri.recipeRegistry_id
-                INNER JOIN
-                    Ingredients i ON ri.ingredient_id = i.ingredient_id
-                GROUP BY
-                    rr.recipeRegistry_id, rr.name, rr.total_weight;
+            SELECT
+                rr.recipeRegistry_id,
+                rr.name AS recipe_name,
+                JSON_OBJECTAGG(
+                        JSON_UNQUOTE(di.name),
+                        JSON_OBJECT('weight', ri.weight, 'notes', JSON_UNQUOTE(ri.notes), 'dyeType', dt.name)
+                ) AS ingredients
+            FROM
+                RecipeRegistry rr
+                    INNER JOIN
+                RecipeIngredients ri ON rr.recipeRegistry_id = ri.recipeRegistry_id
+                    INNER JOIN
+                DyeInventory di ON ri.dyeInventory_id = di.dyeInventory_id
+                    INNER JOIN
+                DyeType dt ON di.dyeType_id = dt.dyeType_id
+            GROUP BY
+                rr.recipeRegistry_id, rr.name;
 `;
 
         db.execute(query)
