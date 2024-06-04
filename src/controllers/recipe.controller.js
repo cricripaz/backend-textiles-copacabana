@@ -3,11 +3,11 @@ import * as recipeServices from "../services/recipe.services.js";
 export const updateRecipe = (req,res) => {
     const recipe_id = req.params.id
 
-    const {name,weight,ingredients} = req.body
+    const {name,ingredients} = req.body
 
-    console.log(recipe_id,name,weight,ingredients)
+    console.log(recipe_id,name,ingredients)
 
-    recipeServices.updateRecipe(recipe_id,name,weight,ingredients)
+    recipeServices.updateRecipe(recipe_id,name,ingredients)
         .then((result) => {
             res.status(200).json({
                 message: "Recipe Update Successfully",

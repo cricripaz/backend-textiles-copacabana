@@ -43,6 +43,27 @@ export const editOrder = (order_id, products) => {
     });
 };
 
+export const startOrders = (order_id , orders ) => {
+    return new Promise((resolve, reject) => {
+        const query = `CALL startOrder(?, ?);`;
+        console.log(order_id, 'ORDERS :',orders)
+        db.execute(query, [order_id, JSON.stringify(orders)])
+            .then((result) => resolve(result))
+            .catch((err) => reject(err));
+    });
+}
+
+export const finishOrder = (order_id) => {
+
+
+    return new Promise((resolve, reject) => {
+        const query = `CALL FinishOrder(?)`;
+
+        db.execute(query, [order_id])
+            .then((result) => resolve(result))
+            .catch((err) => reject(err));
+    });
+}
 export const createOrder = (customer_id,products) => {
 
 

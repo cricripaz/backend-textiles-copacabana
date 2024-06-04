@@ -78,3 +78,37 @@ export const editOrder = (req, res) => {
             });
         });
 };
+
+export const startOrders = (req, res) => {
+    const id = req.params.id;
+    const orders = req.body.products;
+
+    orderServices.startOrders(id, orders)
+        .then((result) => {
+            res.status(200).json({
+                message: "Order Start Successfully",
+            });
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.sqlMessage || err.message || "An error occurred",
+            });
+        });
+};
+
+
+ export const finishOrder = (req, res) => {
+    const id = req.params.id;
+
+    orderServices.finishOrder(id)
+        .then((result) => {
+            res.status(200).json({
+                message: "Order Terminate Successfully",
+            });
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.sqlMessage || err.message || "An error occurred",
+            });
+        });
+};

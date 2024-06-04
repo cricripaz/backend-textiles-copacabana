@@ -1,13 +1,13 @@
 import db from "../config/db.js"
 
 
-export const updateRecipe = (id_recipe,name,weight,ingredients) => {
+export const updateRecipe = (id_recipe,name,ingredients) => {
 
     return new Promise((resolve,reject) => {
 
-        const query = `CALL UpdateRecipe(${id_recipe}, '${name}', ${weight},'${JSON.stringify(ingredients)}')`;
+        const query = `CALL UpdateRecipes(${id_recipe}, '${name}','${JSON.stringify(ingredients)}')`;
 
-        db.execute(query,[id_recipe,name,weight,ingredients])
+        db.execute(query,[id_recipe,name,ingredients])
             .then((result) => resolve(result))
             .catch((err) => reject(err))
 
@@ -47,7 +47,7 @@ export const getRecipes = () => {
                 rr.name AS recipe_name,
                 JSON_OBJECTAGG(
                         JSON_UNQUOTE(di.name),
-                        JSON_OBJECT('weight', ri.weight, 'notes', JSON_UNQUOTE(ri.notes), 'dyeType', dt.name)
+                        JSON_OBJECT('id',di.dyeInventory_id,'weight', ri.weight, 'notes', JSON_UNQUOTE(ri.notes), 'dyeType', dt.name)
                 ) AS ingredients
             FROM
                 RecipeRegistry rr
@@ -59,7 +59,7 @@ export const getRecipes = () => {
                 DyeType dt ON di.dyeType_id = dt.dyeType_id
             GROUP BY
                 rr.recipeRegistry_id, rr.name;
-`;
+            `;
 
         db.execute(query)
             .then( (result) => resolve(result))
