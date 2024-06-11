@@ -8,6 +8,7 @@ import ordersRoute from "./orders.route.js";
 import colorsRoute from "./colors.route.js"
 import materialRoute from "./material.route.js";
 import productRoute from "./product.route.js";
+import dashboardRoute from "./dashboard.route.js"
 
 const indexRouter = Router();
 
@@ -27,7 +28,9 @@ recipeRoute.use(`${prefix}/recipe`, recipeRoute);
 ordersRoute.use(`${prefix}/orders`,ordersRoute )
 colorsRoute.use(`${prefix}/colors`,colorsRoute);
 materialRoute.use(`${prefix}/material`,materialRoute);
-productRoute.use(`${prefix}/products`,productRoute)
+productRoute.use(`${prefix}/products`,productRoute);
+dashboardRoute.use(`${prefix}/dashboard`,dashboardRoute);
+
 
 
 

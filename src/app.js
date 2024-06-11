@@ -14,6 +14,7 @@ import ordersRoute from "./routes/orders.route.js";
 import colorsRoute from "./routes/colors.route.js";
 import materialRoute from "./routes/material.route.js";
 import productRoute from "./routes/product.route.js";
+import dashboardRoute from "./routes/dashboard.route.js";
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurar CORS
 const allowedOrigins = ['https://textilescopacabana-services.web.app', 'https://d1cr03nbov0ajk.cloudfront.net','http://localhost:4200'];
+//TODO allow all origins search
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -58,6 +60,7 @@ app.use('/',ordersRoute)
 app.use('/',colorsRoute)
 app.use('/',materialRoute)
 app.use('/',productRoute)
+app.use('/',dashboardRoute)
 
 app.use('*', (req, res) => { res.status(404).send(" 404 - not found ")})
 
