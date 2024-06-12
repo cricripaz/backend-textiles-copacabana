@@ -2,6 +2,36 @@ import * as dashboardService from "../services/dashboard.service.js"
 
 
 
+
+export const getInventoryTop10 = (req, res) => {
+
+    dashboardService.getInventoryTop10()
+        .then((result) => {
+            res.status(200).json({
+                message: "Inventory top 10 Get Successfully ",
+                data : result[0]
+                // result[0] para que nos envie solo el primer array y no info adicional
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
+export const getOrdersByState = (req, res) => {
+
+    dashboardService.getOrdersByState()
+        .then((result) => {
+            res.status(200).json({
+                message: "Orders by State Get Successfully ",
+                data : result[0]
+                // result[0] para que nos envie solo el primer array y no info adicional
+            })
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        })
+}
+
 export const getOrderByDateRange = (req, res) => {
 
     const {start,end} = req.query;

@@ -45,7 +45,7 @@ export const editOrder = (order_id, products) => {
 
 export const startOrders = (order_id , orders ) => {
     return new Promise((resolve, reject) => {
-        const query = `CALL startOrder(?, ?);`;
+        const query = `CALL startOrderLogs(?, ?);`;
         console.log(order_id, 'ORDERS :',orders)
         db.execute(query, [order_id, JSON.stringify(orders)])
             .then((result) => resolve(result))
