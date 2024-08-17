@@ -74,7 +74,7 @@ export const getOrdersByDateRange = (start_date,end_date) =>{
 
     return new Promise((resolve, reject) => {
 
-        const query = `CALL GetOrdersByDays(?,?)`
+        const query = `CALL GetOrdersByDaysAndQuantity(?,?)`
 
         db.query(query,[start_date,end_date])
             .then((result) => resolve(result))
