@@ -48,9 +48,17 @@ export const createUser = (username,password,role_id,email,name,lastname,numberp
     return new Promise(
         (resolve, reject) => {
             const query = 'INSERT INTO users (username,password,role_id,email,name,lastName,numberPhone,ci)value (?,?,?,?,?,?,?,?)'
-            db.execute(query, [username,password,role_id,email,name,lastname,numberphone,ci])
-                .then((result) => resolve(result))
-                .catch((err) => reject(err))
+            db.execute(query, [username, password, role_id, email, name, lastname, numberphone, ci])
+                .then(([result]) => {
+
+                    const newUserId = result.insertId;  // Obtén el ID del nuevo usuario
+                    console.log('id user : ',newUserId)
+                    // Consulta para obtener los datos del nuevo usuario
+                    const selectQuery = 'SELECT * FROM users WHERE user_id = ?';
+                    return db.execute(selectQuery, [newUserId]);
+                })
+                .then((userData) => resolve(userData[0]))  // Retorna los datos del usuario
+                .catch((err) => reject(err));
         }
     )
 }

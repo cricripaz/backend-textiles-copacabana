@@ -47,17 +47,18 @@ export const editUser = (req,res) => {
         })
 }
 
-export const createUser = (req,res) => {
-    const {username,password,role_id,email,name,lastname,numberphone,ci} = req.body
-    userServices.createUser(username,password,role_id,email,name,lastname,numberphone,ci)
-        .then((result) => {
+export const createUser = (req, res) => {
+    const { username, password, role_id, email, name, lastname, numberphone, ci } = req.body;
+    userServices.createUser(username, password, role_id, email, name, lastname, numberphone, ci)
+        .then((userData) => {
             res.status(200).json({
-                message: "User Create Successfully",
-            })
+                message: "User Created Successfully",
+                data: userData,  // Devuelve los datos del usuario
+            });
         })
         .catch((err) => {
-            res.status(500).send(err)
-        })
+            res.status(500).send(err);
+        });
 }
 
 

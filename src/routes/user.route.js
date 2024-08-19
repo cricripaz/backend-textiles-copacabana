@@ -7,7 +7,7 @@ import {limiterPerUser} from "../middleware/limiter.js"
 
 const userRoute = Router();
 
-userRoute.get("/",limiterPerUser,verifyToken, getUsers);
+userRoute.get("/", getUsers);
 
 userRoute.post("/login", signIn);
 
