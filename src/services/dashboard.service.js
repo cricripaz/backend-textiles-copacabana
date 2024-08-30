@@ -17,7 +17,7 @@ export const getInventoryTop10 = () => {
             GROUP BY
                 d.dye_inventory_id, di.name
             ORDER BY
-                total_quantity_change ASC
+                total_quantity_change DESC 
             LIMIT 10;
         `
 
